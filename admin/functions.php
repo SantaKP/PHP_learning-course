@@ -3,6 +3,26 @@
 
 <?php  //ADDDD CATEGORIES to use header you need to have  ob_start(); function included in your header otherwise it wount work 
 
+function confirmQuery($result){
+
+global $connection;
+
+if(!$result){
+
+    die("QUERY failed ." . mysqli_error($connection));
+}
+
+}
+
+
+
+
+
+
+
+
+
+
 
 function insert_categories(){
     global $connection;
