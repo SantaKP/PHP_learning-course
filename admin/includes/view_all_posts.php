@@ -11,6 +11,8 @@
                                     <th>Tags</th>
                                     <th>Coments</th>
                                     <th>Date</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
                                 </tr>
                             </thead>
                       
@@ -26,9 +28,9 @@
                                     $post_id = $row ['post_id'];
                                     $post_author = $row ['post_author'];//takig values from db 
                                     $post_title = $row ['post_title'];
-                                    $post_category = $row ['post_category_id'];
+                                    $post_category_id = $row ['post_category_id'];
                                     $post_status = $row ['post_status'];
-                                    $post_image = $row ['post_image'];
+                                    $post_image = $row ['image'];
                                     $post_tags = $row ['post_tags'];
                                     $post_comment_count = $row ['post_comment_count'];
                                     $post_date = $row ['post_date'];
@@ -39,7 +41,32 @@
                                      echo "<td> $post_id </td>";
                                      echo "<td> $post_author </td>";
                                      echo "<td> $post_title </td>";
-                                     echo "<td> $post_category  </td>";
+
+
+
+                                     
+                                     
+                                     $query = "SELECT * FROM categories WHERE (cat_id) = {$post_category_id}" ;//you can also limit how many categories you want to display by adding "LIMIT n " 
+                                $select_categories_id = mysqli_query($connection, $query);
+                                
+                                
+                                    while ($row = mysqli_fetch_assoc($select_categories_id)){
+                                    $cat_id = $row ['cat_id'];
+                                    $cat_title = $row ['cat_title'];//takig values from db 
+                                    
+
+                                        
+                                     
+                                     echo "<td> {$cat_title} </td>";
+                                    }
+
+
+
+
+
+
+
+
                                      echo "<td> $post_status </td>";
                                      echo "<td> <img width = '100' src= '../images/$post_image' alt ='images'> </td>";
                                      echo "<td> $post_tags  </td>";
@@ -69,6 +96,7 @@
                             $the_post_id = $_GET['delete'];
                             $query = "DELETE FROM posts WHERE post_id = {$the_post_id}";
                             $delete_query = mysqli_query($connection, $query);
+                            header("Location: posts.php");//this function refresshes page for you, so after pressing delete you dont have to do that because info just disapears correctly
 
                         }
                         
