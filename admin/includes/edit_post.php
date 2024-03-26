@@ -137,12 +137,12 @@ echo "<option value= '{$cat_id}'>{$cat_title}</option>";
 
 if($post_status == 'publish'){
 
-echo "<option value= 'draft'>Draft</option>";
+echo "<option value= 'publish'>Publish</option>";
 
 
 }else {
 
-    echo "<option value= 'publish'>Publish</option>";
+    echo "<option value= 'draft'>draft</option>";
 
 
 

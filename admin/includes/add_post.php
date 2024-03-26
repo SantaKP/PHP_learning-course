@@ -22,7 +22,11 @@ $query = "INSERT INTO posts (post_category_id, post_title, post_author,post_date
 
 $query .= "VALUES ('{$post_category_id}', '{$post_title}', '{$post_author}', now(), '{$post_image}','{$post_content}', '{$post_tags}', '{$post_status}')";//now()is function for date 
  $create_post_query = mysqli_query($connection, $query);
+confirmQuery($create_post_query);
 
+$the_post_id = mysqli_insert_id($connection);//this function is gonna pull out last created id in this table (db with whitch created connection )
+
+echo "<p class='bg-success'>Post created <a href='../post.php?p_id={$the_post_id}'>View post</a> or <a href='posts.php?' > Edit more posts</a></p>";
 
 }
 
@@ -86,8 +90,15 @@ echo "<option value= '{$cat_id}'>{$cat_title}</option>";
 
 
 <div class="form-group">
-    <label for="post_status">Post status</label>
-    <input type="text" class="form-control" name="post_status">
+   
+<select name="post_status" id="">
+
+<option value="draft">Post status</option>
+<option value="publish"> publish</option>
+<option value="draft">draft</option>
+
+</select>
+
 </div>
 
 <div class="form-group">
