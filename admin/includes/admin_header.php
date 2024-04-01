@@ -44,6 +44,7 @@ header("Location: ../index.php");
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
     <link rel="stylesheet" href="css/summernote.css">
+    <link rel="stylesheet" href="css/styles.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <!-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"> -->
 

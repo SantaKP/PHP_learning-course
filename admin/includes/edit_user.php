@@ -54,13 +54,17 @@ $user_password = $_POST['user_password'];
 
 //confirmQuery($create_user_query);
 
+
+
+$hashed_password = crypt($user_password, '$2y$10$iusesomecrazystrings02	');
+
                                         $query = "UPDATE users SET ";
                                         $query .= "user_firstname = '{$user_firstname}', ";
                                         $query .= "user_lastname = '{$user_lastname}', ";
                                         $query .= "user_role = '{$user_role}', ";
                                         $query .= "username = '{$username}', ";
                                         $query .= "user_email = '{$user_email}', ";
-                                        $query .= "user_password = '{$user_password}' ";
+                                        $query .= "user_password = '{$hashed_password}' ";
                                         $query .= "WHERE user_id = '{$the_user_id}' ";
 
 
@@ -111,7 +115,7 @@ here was that option button code what you can find now in edit user under post_t
     <select name="user_role" id=" ">
 
    
-    <option value="subscriber"> <?php  echo $user_role; ?> </option>
+    <option value="<?php  echo $user_role; ?>"> <?php  echo $user_role; ?> </option>
 
  <?php
 

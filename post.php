@@ -20,8 +20,14 @@
 
                 $the_post_id= $_GET['p_id'];
 
+                $view_query = "UPDATE posts SET post_views_count = post_views_count + 1 WHERE post_id = $the_post_id";
+                $send_query = mysqli_query($connection, $view_query);
 
-            }
+                if(!$send_query){
+
+                die("query failed!");
+
+                }
             
             
             $query = "SELECT * FROM posts WHERE post_id = '{$the_post_id}' "; // we write this $query because we need to sellect data from this data base. in this case posts are the db we need
@@ -57,7 +63,25 @@
                 <hr>
 
 
-                <?php } ?>
+                <?php } 
+            
+            
+            
+            
+                  }else {
+
+                    header("Location: index.php");
+
+
+
+
+                  }
+                
+                
+                
+                
+                
+                ?>
 
 
 
@@ -92,26 +116,40 @@
 
                         die("QUERY FAILED!" . mysqli_error($connection));
 
-                    }
+
+
+                    }  
+                    
+
+
 
                     $query = "UPDATE posts SET post_comment_count = post_comment_count +1 ";
                     $query .= " WHERE post_id = $the_post_id";
                     $update_comment_count = mysqli_query($connection, $query);
 
+
+
+                  
+
                 }else {
                     echo "<script>alert('fields cannot be empty') </script>";
 
 
-                }
-                
+                }                    redirect(location:"/cms/post.php?p_id=$the_post_id");
 
+                
+                
 
 
                         }
                 
 
                     
+                        function redirect($location){
 
+                        return header(header: "Location:" . $location);//this function redirects when entered comment but refrech page so that pop up message would not appear. reser the forms by refreshing page
+
+}
 
                     
                 

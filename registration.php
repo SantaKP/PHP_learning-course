@@ -16,10 +16,12 @@ $email = mysqli_real_escape_string($connection, $email);
 $password = mysqli_real_escape_string($connection, $password );
 
 
-$query = "SELECT randSalt FROM users";
-$select_randsalt_query = mysqli_query($connection, $query);
+if(!empty($username) && !empty($email) && !empty($password)) {
 
-if(!$select_randsalt_query){
+$query = "SELECT salt FROM users";
+$select_salt_query = mysqli_query($connection, $query);
+
+if(!$select_salt_query){
 
 
 die( "Query failed "   . mysqli_error($connection));
@@ -27,20 +29,38 @@ die( "Query failed "   . mysqli_error($connection));
 
 }
 
-while($row = mysqli_fetch_array($select_randsalt_query)){
+$row = mysqli_fetch_array($select_salt_query);
+$salt = $row['salt'];
+$password = crypt($password,'$2y$10$iusesomecrazystrings02');
+ 
+$query = "INSERT INTO users (username, user_email, user_password, user_role) ";
+$query .= "VALUES('{$username}', '{$email}', '{$password}', 'subscriber')";
+$register_user_query = mysqli_query($connection, $query);
 
-echo $salt = $row['randSalt'];
+if(!$register_user_query){
+
+die("query failed!" . mysqli_error($connection) . '' .mysqli_errno($connection));
+
+
+}$message = "Your registration has been succesful! :)";
 
 
 
 
+}else {
 
+    $message = "Fields cannot be empty! ;(";
+}
+
+}else{
+     $message = "";
 }
 
 
 
 
-}
+
+
 
 
 
@@ -62,6 +82,7 @@ echo $salt = $row['randSalt'];
                 <div class="form-wrap">
                 <h1>Register</h1>
                     <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
+                        <h6 class=""><?php echo $message; ?></h6>
                         <div class="form-group">
                             <label for="username" class="sr-only">username</label>
                             <input type="text" name="username" id="username" class="form-control" placeholder="Enter Desired Username">
