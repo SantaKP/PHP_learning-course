@@ -4,6 +4,6 @@ $connection = mysqli_connect('localhost', 'root', '', 'cms');
      die("Database connection failed");
     }else {
 
-        echo 'good job';
+        echo '';
     }
 ?>

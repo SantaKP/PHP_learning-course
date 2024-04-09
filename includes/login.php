@@ -52,9 +52,13 @@ while($row = mysqli_fetch_array($select_user_query)){
 
 } 
 
-$password = crypt($password, $db_user_password);//reverses previous password encrryption 
+//$password = crypt($password, $db_user_password);//reverses previous password encrryption 
 
-if($username === $db_username && $password === $db_user_password){// remember!!! == eaqul but if === identical
+//if($username === $db_username && $password === $db_user_password)// remember!!! == eaqul but if === identical
+
+
+
+if(password_verify($password, $db_user_password)){//vertify password take password and compares with db pasword 
 
 
 $_SESSION['username'] = $db_username;

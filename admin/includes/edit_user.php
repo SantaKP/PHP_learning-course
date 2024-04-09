@@ -10,7 +10,7 @@ if(isset($_GET['edit_user'])){
                                 
                                     while ($row = mysqli_fetch_assoc($select_users_query)){
                                     $user_id = $row ['user_id'];
-                                  echo  $username = $row ['username'];//takig values from db 
+                                   $username = $row ['username'];//takig values from db 
                                     $user_password = $row ['user_password'];
                                     $user_firstname = $row ['user_firstname'];
                                     $user_lastname = $row ['user_lastname'];
@@ -22,7 +22,7 @@ if(isset($_GET['edit_user'])){
 
 
 
-}
+
 
 
 
@@ -56,7 +56,24 @@ $user_password = $_POST['user_password'];
 
 
 
-$hashed_password = crypt($user_password, '$2y$10$iusesomecrazystrings02	');
+//$hashed_password = crypt($user_password, '$2y$10$iusesomecrazystrings02	');
+
+
+                if(!empty($user_password)){
+
+                    $query_password = "SELECT user_password FROM users WHERE user_id = $the_user_id";
+                    $get_user_query = mysqli_query($connection, $query_password);
+                    confirmQuery($get_user_query);
+                    $row = mysqli_fetch_array($get_user_query);
+
+
+                    $db_user_password = $row['user_password'];
+
+                         if($db_user_password != $user_password){
+
+                        $hashed_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 12 ));
+
+                    }
 
                                         $query = "UPDATE users SET ";
                                         $query .= "user_firstname = '{$user_firstname}', ";
@@ -74,11 +91,33 @@ $hashed_password = crypt($user_password, '$2y$10$iusesomecrazystrings02	');
 
 
 
+
+                        echo "User updated" . "<a href='users.php'>View Users</a>";
+
+
+
+
+                }
+
+
+                  
+
+
+
+
 }
 
 
 
+}else {
 
+header("Location: index.php");
+
+
+
+
+
+}
 
 ?>
 
@@ -112,29 +151,15 @@ here was that option button code what you can find now in edit user under post_t
 
 
 <div class="form-group">
-    <select name="user_role" id=" ">
-
-   
-    <option value="<?php  echo $user_role; ?>"> <?php  echo $user_role; ?> </option>
-
+    <select name="user_role" id=" "> 
+    <option value="<?php  echo $user_role; ?>"> <?php  echo $user_role; ?> </option> 
  <?php
-
 if($user_role == 'admin'){
-
 echo "<option value='subscriber'> subscriber  </option>";
-
-
-
 }else {
-
     echo "<option value='admin'> admin  </option>";
 
 }
-
-
-
-
-
     ?>
 
 
@@ -149,11 +174,7 @@ echo "<option value='subscriber'> subscriber  </option>";
 
 
 
-<!-- 
-<div class="form-group">
-    <label for="image">Post image</label>
-    <input type="file" name="image">
-</div> -->
+
 
 
 <div class="form-group">
@@ -173,7 +194,7 @@ echo "<option value='subscriber'> subscriber  </option>";
 
 <div class="form-group">
     <label for="post_tags">Password</label>
-    <input type="password" value="<?php echo $user_password?>" class="form-control" name="user_password">
+    <input type="password" autocomplete="off" class="form-control" name="user_password">
 </div>
 
 

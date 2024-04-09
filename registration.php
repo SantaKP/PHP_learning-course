@@ -16,22 +16,26 @@ $email = mysqli_real_escape_string($connection, $email);
 $password = mysqli_real_escape_string($connection, $password );
 
 
-if(!empty($username) && !empty($email) && !empty($password)) {
-
-$query = "SELECT salt FROM users";
-$select_salt_query = mysqli_query($connection, $query);
-
-if(!$select_salt_query){
+$password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12 ));
 
 
-die( "Query failed "   . mysqli_error($connection));
 
 
-}
+//if(!empty($username) && !empty($email) && !empty($password)) {
+//$query = "SELECT salt FROM users";
+//$select_salt_query = mysqli_query($connection, $query);
+//if(!$select_salt_query){
+//die( "Query failed "   . mysqli_error($connection));
+//}
 
-$row = mysqli_fetch_array($select_salt_query);
-$salt = $row['salt'];
-$password = crypt($password,'$2y$10$iusesomecrazystrings02');
+
+
+//$row = mysqli_fetch_array($select_salt_query);
+//$salt = $row['salt'];
+//$password = crypt($password,'$2y$10$iusesomecrazystrings02');
+
+
+
  
 $query = "INSERT INTO users (username, user_email, user_password, user_role) ";
 $query .= "VALUES('{$username}', '{$email}', '{$password}', 'subscriber')";
@@ -50,11 +54,10 @@ die("query failed!" . mysqli_error($connection) . '' .mysqli_errno($connection))
 }else {
 
     $message = "Fields cannot be empty! ;(";
-}
+} 
 
-}else{
-     $message = "";
-}
+//need to fz this part so by default there are no error messages 
+
 
 
 

@@ -20,7 +20,7 @@ while($row = mysqli_fetch_array($select_user_profile)){
                                     $user_lastname = $row ['user_lastname'];
                                     $user_email = $row ['user_email'];
                                     $user_image = $row ['user_image'];
-                                    $user_role = $row ['user_role'];
+                                    
 
 
 }
@@ -46,7 +46,7 @@ if(isset($_GET['edit_user'])){
                                     $user_lastname = $row ['user_lastname'];
                                   $user_email = $row ['user_email'];
                                     $user_image = $row ['user_image'];
-                                    $user_role = $row ['user_role'];
+                                    
 
                                     }
 
@@ -66,7 +66,7 @@ if(isset($_POST['edit_user'])){
 //$user_id = $_POST['user_id'];
 $user_firstname = $_POST['user_firstname'];
 $user_lastname = $_POST['user_lastname'];
-$user_role = $_POST['user_role'];
+
 
 $username = $_POST['username'];
 $user_email = $_POST['user_email'];
@@ -87,7 +87,7 @@ $user_password = $_POST['user_password'];
                                         $query = "UPDATE users SET ";
                                         $query .= "user_firstname = '{$user_firstname}', ";
                                         $query .= "user_lastname = '{$user_lastname}', ";
-                                        $query .= "user_role = '{$user_role}', ";
+                                        
                                         $query .= "username = '{$username}', ";
                                         $query .= "user_email = '{$user_email}', ";
                                         $query .= "user_password = '{$user_password}' ";
@@ -166,39 +166,12 @@ $user_password = $_POST['user_password'];
 
 <div class="form-group">
     <label for="post_status">Lastname</label>
-    <input type="text" value="<?php echo $user_lastname?>" class="form-control" name="user_lastname">
+ <input type="text" value="<?php echo $user_lastname?>" class="form-control" name="user_lastname">
 </div>
 
 <!-- 
 here was that option button code what you can find now in edit user under post_title  -->
 
-
-
-<div class="form-group">
-    <select name="user_role" id=" ">
-
-   
-    <option value="subscriber"> <?php  echo $user_role; ?> </option>
-
- <?php
-
-if($user_role == 'admin'){
-
-echo "<option value='subscriber'> subscriber  </option>";
-
-
-
-}else {
-
-    echo "<option value='admin'> admin  </option>";
-
-}
-
-
-
-
-
-    ?>
 
 
 
@@ -228,7 +201,7 @@ echo "<option value='subscriber'> subscriber  </option>";
 
 <div class="form-group">
     <label for="post_content">Email</label>
-    <textarea class="form-control" type="email" value="<?php echo $user_email ?>"   name="user_email" >
+    <textarea class="form-control" type="email" value="<?php echo $user_email ?>"  name="user_email" >
     </textarea>
 </div>
 
@@ -236,7 +209,7 @@ echo "<option value='subscriber'> subscriber  </option>";
 
 <div class="form-group">
     <label for="post_tags">Password</label>
-    <input type="password" value="<?php echo $user_password?>" class="form-control" name="user_password">
+    <input type="password" autocomplete="off" class="form-control" name="user_password">
 </div>
 
 

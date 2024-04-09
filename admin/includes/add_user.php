@@ -12,7 +12,7 @@ $username = $_POST['username'];
 $user_email = $_POST['user_email'];
 $user_password = $_POST['user_password'];
 //$post_date = date('d-m-y');
-
+$user_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost' => 10 ));
 
 
 
