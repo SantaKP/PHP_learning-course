@@ -1,3 +1,38 @@
+<?php include "includes/admin_header.php";?>
+
+    <div id="wrapper">
+
+
+
+
+
+
+        <!-- Navigation -->
+      
+<?php include "includes/admin_navigation.php";?>
+
+
+
+
+
+
+
+
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+
+                    <h1 class="page-header">
+                            Welcome to admin 
+                            <small>Author</small>
+                        </h1>
+                       
+
 
 <table class= "table table-bordered table-hover">
                             <thead>
@@ -20,7 +55,7 @@
                            
                            
                            global $connection;
-                                        $query = "SELECT * FROM comments  WHERE comment_post_id =" . mysqli_real_escape_string($_GET['id']) . '';//you can also limit how many categories you want to display by adding "LIMIT n " 
+                                        $query = "SELECT * FROM comments  WHERE comment_post_id =" . mysqli_real_escape_string($connection, $_GET['id']) . " ";//you can also limit how many categories you want to display by adding "LIMIT n " 
                                 $select_comments = mysqli_query($connection, $query);
                                 
                                     while ($row = mysqli_fetch_assoc($select_comments)){
@@ -66,7 +101,7 @@
 
                                      echo "<td> <a href='comments.php?approve=$comment_id'>APPROVE</a> </td>";
                                      echo "<td> <a href='comments.php?unapprove=$comment_id'>UNAPPROVED</a> </td>";
-                                     echo "<td> <a href='comments.php?delete=$comment_id'>DELETE</a> </td>";
+                                     echo "<td> <a href='post_comments.php?delete=$comment_id&id=" . $_GET['id'] ."'>DELETE</a> </td>";
 
 
                                      echo "</tr>";
@@ -118,9 +153,22 @@
                             $the_comment_id = $_GET['delete'];
                             $query = "DELETE FROM comments WHERE comment_id = {$the_comment_id}";
                             $delete_query = mysqli_query($connection, $query);
-                            header("Location: comments.php");
+                            header("Location: post_comments.php?id=" . $_GET['id'] . "");
 
                         }
                         
                         
                         ?>
+
+
+                        </div>
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    <?php include "includes/admin_footer.php";?>

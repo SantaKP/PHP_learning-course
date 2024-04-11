@@ -17,7 +17,7 @@ if(isset($_GET['p_id'])){
                                 
                                     while ($row = mysqli_fetch_assoc($select_posts_by_id)){
                                     $post_id = $row ['post_id'];
-                                    $post_author = $row ['post_author'];//takig values from db 
+                                    $post_user = $row ['post_user'];//takig values from db 
                                     $post_title = $row ['post_title'];
                                     $post_category_id = $row ['post_category_id'];
                                     $post_status = $row ['post_status'];
@@ -34,7 +34,7 @@ if(isset($_GET['p_id'])){
                                     
 
                                          $post_title = $_POST['title'];
-                                         $post_author = $_POST['author'];
+                                         $post_user = $_POST['post_user'];
                                          $post_category_id = $_POST['post_category_id'];
                                          $post_status = $_POST['post_status'];
                                          $post_image = $_FILES['image']['name'];
@@ -65,7 +65,7 @@ if(isset($_GET['p_id'])){
                                         $query .= "post_title = '{$post_title}', ";
                                         $query .= "post_category_id = '{$post_category_id}', ";
                                         $query .= "post_date = now(), ";
-                                        $query .= "post_author = '{$post_author}', ";
+                                        $query .= "post_user = '{$post_user}', ";
                                         $query .= "post_status = '{$post_status}', ";
                                         $query .= "post_tags = '{$post_tags}', ";
                                         $query .= "post_content = '{$post_content}', ";
@@ -96,6 +96,7 @@ if(isset($_GET['p_id'])){
 
 
 <div class="form-group">
+<label for="users"> Categories</label>
     <select name="post_category_id" id="post_category_id">
 
 <?php 
@@ -115,6 +116,51 @@ $query = "SELECT * FROM categories  " ;
 echo "<option value= '{$cat_id}'>{$cat_title}</option>";
 
 }
+
+
+
+?>
+
+</select>
+
+</div>
+
+
+<div class="form-group">
+    <label for="users"> Users</label>
+    <select name="post_user" id="post_category">
+
+    <?php 
+    
+    
+echo "<option value= '{$post_user}'>{$post_user}</option>";
+    
+    
+    
+    ?>
+
+<?php 
+
+
+
+$query = "SELECT * FROM users  " ;
+                                $select_users = mysqli_query($connection, $query);
+                                confirmQuery($select_users);
+                                
+                                    while ($row = mysqli_fetch_assoc($select_users)){
+                                    $user_id = $row ['user_id'];
+                                    $username = $row ['username'];//takig values from db 
+                                    
+
+
+echo "<option value= '{$username}'>{$username}</option>";
+
+}
+
+
+
+
+
 ?>
 
 
@@ -122,10 +168,10 @@ echo "<option value= '{$cat_id}'>{$cat_title}</option>";
 
 </div>
 
-<div class="form-group">
-    <label for="title">Post author</label>
-    <input value="<?php echo $post_author; ?>" type="text" class="form-control" name="author">
-</div>
+<!-- <div class="form-group">
+    <label for="title">User</label>
+    <input value="<?//php echo $post_user; ?>" type="text" class="form-control" name="user">
+</div> -->
 
 <div class="form-group">
 
@@ -135,14 +181,14 @@ echo "<option value= '{$cat_id}'>{$cat_title}</option>";
 
 <?php 
 
-if($post_status == 'publish'){
+if($post_status === 'publish'){
 
-echo "<option value= 'publish'>Publish</option>";
+echo "<option value= 'draft'>publish</option>";
 
 
 }else {
 
-    echo "<option value= 'draft'>draft</option>";
+    echo "<option value= 'publish'>publish</option>";
 
 
 

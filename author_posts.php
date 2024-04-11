@@ -25,12 +25,12 @@
             }
             
             
-            $query = "SELECT * FROM posts WHERE post_author = '{$the_post_author}' "; // we write this $query because we need to sellect data from this data base. in this case posts are the db we need
+            $query = "SELECT * FROM posts WHERE post_user = '{$the_post_author}' "; // we write this $query because we need to sellect data from this data base. in this case posts are the db we need
             $select_all_posts_query = mysqli_query($connection, $query);
             
             while($row = mysqli_fetch_assoc($select_all_posts_query)){
                 $post_title = $row['post_title'];
-                $post_author = $row['post_author'];
+                $post_user = $row['post_user'];
                 $post_date = $row['post_date'];
                 $post_image = $row['image'];
                 $post_content = $row['post_content'];
@@ -47,7 +47,7 @@
                     <a href="#"><?php echo $post_title; ?></a>
                 </h2>
 
-                <p class="lead">All posts by <?php echo $post_author; ?>
+                <p class="lead">All posts by <?php echo $post_user; ?>
                
                 </p>
 
