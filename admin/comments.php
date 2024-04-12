@@ -37,7 +37,7 @@
                         
                         
                         if(isset($_GET['source'])){ ///for switch statement we need conditionand it takes only one parametere so only one variable for exmp.
-                            $source = $_GET['source'];    
+                            $source = escape($_GET['source']);    
 
                         } else {
                         $source = '';

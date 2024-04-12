@@ -18,7 +18,7 @@
             
             if(isset($_GET['category'])){
 
-                $post_category_id =  $_GET['category'];
+                $post_category_id =  escape($_GET['category']);
 
 
             }

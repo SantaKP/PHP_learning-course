@@ -4,6 +4,45 @@
 
 <?php 
 
+// the message
+//$msg = "First line of text\nSecond line of text";
+
+// use wordwrap() if lines are longer than 70 characters
+//$msg = wordwrap($msg,70);
+
+// send email
+//mail("someone@example.com","My subject",$msg);
+
+
+
+
+
+if(isset($_POST['submit'])){
+
+$to      = "";
+$subject = $_POST['subject'];
+$body   = $_POST['body'];
+
+
+
+
+
+
+
+
+}
+
+
+
+
+?>
+
+
+
+
+
+<?php 
+
 if(isset($_POST['submit'])){
 
 $username =escape($_POST['username']);
@@ -21,18 +60,6 @@ $password = password_hash($password, PASSWORD_BCRYPT, array('cost' => 12 ));
 
 
 
-//if(!empty($username) && !empty($email) && !empty($password)) {
-//$query = "SELECT salt FROM users";
-//$select_salt_query = mysqli_query($connection, $query);
-//if(!$select_salt_query){
-//die( "Query failed "   . mysqli_error($connection));
-//}
-
-
-
-//$row = mysqli_fetch_array($select_salt_query);
-//$salt = $row['salt'];
-//$password = crypt($password,'$2y$10$iusesomecrazystrings02');
 
 
 
@@ -83,23 +110,23 @@ die("query failed!" . mysqli_error($connection) . '' .mysqli_errno($connection))
         <div class="row">
             <div class="col-xs-6 col-xs-offset-3">
                 <div class="form-wrap">
-                <h1>Register</h1>
+                <h1>Contact</h1>
                     <form role="form" action="registration.php" method="post" id="login-form" autocomplete="off">
-                        <h6 class=""><?php echo $message; ?></h6>
-                        <div class="form-group">
-                            <label for="username" class="sr-only">username</label>
-                            <input type="text" name="username" id="username" class="form-control" placeholder="Enter Desired Username">
-                        </div>
+                       
                          <div class="form-group">
                             <label for="email" class="sr-only">Email</label>
-                            <input type="email" name="email" id="email" class="form-control" placeholder="somebody@example.com">
+                            <input type="email" name="email" id="email" class="form-control" placeholder="enter your email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject" class="sr-only">Subject</label>
+                            <input type="email" name="subject" id="subject" class="form-control" placeholder="Enter subject">
                         </div>
                          <div class="form-group">
-                            <label for="password" class="sr-only">Password</label>
-                            <input type="password" name="password" id="key" class="form-control" placeholder="Password">
+                            <textarea name="body" id="" class="form-control">  </textarea>
                         </div>
                 
-                        <input type="submit" name="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Register">
+                        <input type="submit" name="submit" id="btn-login" class="btn btn-custom btn-lg btn-block" value="Submit">
                     </form>
                  
                 </div>

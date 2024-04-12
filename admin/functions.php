@@ -16,7 +16,16 @@ if(!$result){
 
 
 
+function escape($string){
 
+global $connection;
+
+
+
+return mysqli_real_escape_string($connection,trim($string));
+
+
+}
 
 
 
@@ -29,7 +38,7 @@ function insert_categories(){
 
                                 if(isset($_POST['submit'])){
                                   
-                                        $cat_title = $_POST['cat_title'];
+                                        $cat_title = escape($_POST['cat_title']);
                                         if($cat_title == "" || empty($cat_title)){
 
                                             echo "field cant be empty";
@@ -85,7 +94,7 @@ function insert_categories(){
                                     global $connection;
 
                                     if(isset($_GET['delete'])){
-                                            $the_cat_id = $_GET['delete'];
+                                            $the_cat_id = escape($_GET['delete']);
                                                     $query = "DELETE FROM categories WHERE cat_id = {$the_cat_id}";
                                                     $delete_query = mysqli_query($connection, $query);
                                                     header("Location: categories.php");//refresh page otherwise it wouldnt delete categorie right away 

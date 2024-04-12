@@ -1,11 +1,13 @@
 
 <?php 
 
+include ("delete_modal.php");
+
 if(isset($_POST['checkBoxArray'])){
 
 foreach($_POST['checkBoxArray'] as $postValueId){
 
-  $bulk_options = $_POST['bulk_options']; 
+  $bulk_options = escape($_POST['bulk_options']); 
 
 
   switch($bulk_options){
@@ -242,7 +244,8 @@ case 'clone':
                                      echo "<td>  $post_date </td>";
                                      echo "<td> <a href='../post.php?p_id={$post_id}'>VIEW POST</a> </td>";
                                      echo "<td> <a href='posts.php?source=edit_post&p_id={$post_id}'>EDIT</a> </td>";
-                                     echo "<td> <a onClick=\"javascript: return confirm('Are you sure you want to delete?');\" href='posts.php?delete={$post_id}'>DELETE</a> </td>";
+                                     echo "<td><a rel='$post_id' href='javascript:void(0)' class='delete_link'>Delete</a></td>";
+                                    // echo "<td> <a onClick=\"javascript: return confirm('Are you sure you want to delete?');\" href='posts.php?delete={$post_id}'>DELETE</a> </td>";
                                      
                                      echo "<td><a href='posts.php?reset={$post_id}'> {$post_views_count} </a> </td>";
                                      echo "</tr>";
@@ -264,7 +267,7 @@ case 'clone':
                         <?php  
                         
                         if(isset($_GET['delete'])){
-                            $the_post_id = $_GET['delete'];
+                            $the_post_id = escape($_GET['delete']);
                             $query = "DELETE FROM posts WHERE post_id = {$the_post_id}";
                             $delete_query = mysqli_query($connection, $query);
                             header("Location: posts.php");//this function refresshes page for you, so after pressing delete you dont have to do that because info just disapears correctly
@@ -273,7 +276,7 @@ case 'clone':
 
 
                             if(isset($_GET['reset'])){
-                            $the_post_id = $_GET['reset'];
+                            $the_post_id = escape( $_GET['reset']);
                             $query = "UPDATE posts set post_views_count = 0 WHERE post_id =" . mysqli_real_escape_string($connection, $_GET['reset']) . "";
                             $reset_query = mysqli_query($connection, $query);
                             header("Location: posts.php");
@@ -282,3 +285,38 @@ case 'clone':
                         
                         
                         ?>
+
+
+
+                        <script>
+
+                        $(document).ready(function(){
+
+                            $(".delete_link").on('click', function(){
+
+
+                              
+
+                                var id = $(this).attr("rel");
+                                var delete_url = "posts.php?delete=" + id + "";
+
+                                $(".modal_delete_link").attr("href", delete_url);
+
+                                $("#myModal").modal('show');
+
+                                
+
+
+
+
+                            });
+
+
+                        });
+
+
+
+
+
+
+                        </script>

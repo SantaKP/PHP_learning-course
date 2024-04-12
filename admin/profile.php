@@ -5,7 +5,7 @@
 
 if(isset($_SESSION['username'])){
 
-$username = $_SESSION['username'];
+$username =escape( $_SESSION['username']);
 
 $query = "SELECT * FROM users WHERE username = '{$username}'";
 
@@ -34,7 +34,7 @@ while($row = mysqli_fetch_array($select_user_profile)){
 
 if(isset($_GET['edit_user'])){
 
-  $the_user_id = $_GET['edit_user'];
+  $the_user_id = escape($_GET['edit_user']);
   $query = "SELECT * FROM users WHERE user_id = $the_user_id";//($the user id donnt need ""because int but have to use double "" not '')you can also limit how many categories you want to display by adding "LIMIT n " 
                                 $select_users_query = mysqli_query($connection, $query);
                                 
@@ -64,13 +64,13 @@ if(isset($_GET['edit_user'])){
 if(isset($_POST['edit_user'])){
 
 //$user_id = $_POST['user_id'];
-$user_firstname = $_POST['user_firstname'];
-$user_lastname = $_POST['user_lastname'];
+$user_firstname = escape($_POST['user_firstname']);
+$user_lastname = escape($_POST['user_lastname']);
 
 
-$username = $_POST['username'];
-$user_email = $_POST['user_email'];
-$user_password = $_POST['user_password'];
+$username = escape( $_POST['username']);
+$user_email = escape($_POST['user_email']);
+$user_password = escape($_POST['user_password']);
 //$post_date = date('d-m-y');
 
 

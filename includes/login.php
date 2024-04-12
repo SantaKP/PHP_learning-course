@@ -23,8 +23,8 @@ session_start();
  
  if(isset($_POST['login'])){
 
-  $username = $_POST['username'];
-  $password =  $_POST['password'];
+  $username = escape($_POST['username']);
+  $password = escape( $_POST['password']);
 
 
 
