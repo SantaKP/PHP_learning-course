@@ -59,16 +59,24 @@ case 'clone':
                                     $post_category_id = $row ['post_category_id'];
                                     $post_date = $row ['post_date'];
                                     $post_author = $row ['post_author'];
+                                    $post_user = $row ['post_user'];
                                     $post_status = $row ['post_status'];
                                     $post_image = $row ['image'];
                                     $post_tags = $row ['post_tags'];
                                     $post_content  = $row ['post_content'];
+
+
+                                    if(empty($post_tags)){
+
+                                        $post_tags = "No tags";
+
+                                    }
                                                                     
                                                             
                                  }
 
-                                 $query = "INSERT INTO posts (post_category_id, post_title, post_author, post_date, image, post_content, post_tags, post_status)";
-                                 $query .= "VALUES ('{$post_category_id}','{$post_title}','{$post_author}',now(),'{$image}','{$post_content}','{$post_tags}', '{$post_status}')";
+                                 $query = "INSERT INTO posts (post_category_id, post_title, post_author,post_user, post_date, image, post_content, post_tags, post_status)";
+                                 $query .= "VALUES ('{$post_category_id}','{$post_title}','{$post_author}','{$post_user}', now(),'{$image}','{$post_content}','{$post_tags}', '{$post_status}')";
 
                                  $copy_query = mysqli_query($connection, $query);
 
@@ -228,7 +236,7 @@ case 'clone':
                                     $query = "SELECT * FROM comments WHERE comment_post_id = $post_id";
                                     $send_comment_query = mysqli_query($connection, $query);
                                     $row = mysqli_fetch_array($send_comment_query);
-                                    $comment_id = $row['comment_id'];
+                                    //$comment_id = $row['comment_id'];
                                     $count_comments = mysqli_num_rows($send_comment_query);
                                      
                                     

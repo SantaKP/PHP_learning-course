@@ -18,15 +18,46 @@
             
             if(isset($_GET['category'])){
 
-                $post_category_id =  escape($_GET['category']);
+                $post_category_id =  ($_GET['category']);
 
 
-            }
+
+                if(isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin' ){
+
+                    $query = "SELECT * FROM posts WHERE post_category_id = '{$post_category_id}' ";
+
+
+
+
+                }else {
+
+
+  
+              $query = "SELECT * FROM posts WHERE post_category_id = '{$post_category_id}' AND post_status = 'publish'";
+
+
+                }
             
+
+
+             
             
-            $query = "SELECT * FROM posts WHERE post_category_id = '{$post_category_id}'"; // we write this $query because we need to sellect data from this data base. in this case posts are the db we need
+         // we write this $query because we need to sellect data from this data base. in this case posts are the db we need
             $select_all_posts_query = mysqli_query($connection, $query);
             
+                if(mysqli_num_rows($select_all_posts_query) < 1){
+
+
+                    echo "<h1 class='text-center'>NO POSTS</h1>";
+
+
+                }else {
+
+
+
+
+
+
             while($row = mysqli_fetch_assoc($select_all_posts_query)){
                 $post_id = $row['post_id'];
                 $post_title = $row['post_title'];
@@ -59,7 +90,14 @@
                 <hr>
 
 
-                <?php } ?>
+                <?php } } } else {
+
+
+                    header("Location: index.php");
+
+
+
+                } ?>
 
 
 

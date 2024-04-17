@@ -112,8 +112,22 @@ $query = "SELECT * FROM categories  " ;
                                     $cat_title = $row ['cat_title'];//takig values from db 
                                     
 
+if($cat_id == $post_category_id) {
 
-echo "<option value= '{$cat_id}'>{$cat_title}</option>";
+
+
+echo "<option selected value= '{$cat_id}'>{$cat_title}</option>";
+
+
+}else{
+
+    echo "<option value= '{$cat_id}'>{$cat_title}</option>";
+
+}
+
+
+
+
 
 }
 
@@ -183,7 +197,7 @@ echo "<option value= '{$username}'>{$username}</option>";
 
 if($post_status === 'publish'){
 
-echo "<option value= 'draft'>publish</option>";
+echo "<option value= 'draft'>draft</option>";
 
 
 }else {
@@ -223,7 +237,7 @@ echo "<option value= 'draft'>publish</option>";
     <label for="summernote">Post content</label>
     <textarea value=""class="form-control" name="post_content" id="summernote" cols="30" rows="10">
     
-<?php echo $post_content; ?>
+<?php echo str_replace('\r\n', '</br>', $post_content); //fixes bug in text editor?>
 
 </textarea>
 </div>

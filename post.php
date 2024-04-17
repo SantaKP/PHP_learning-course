@@ -18,22 +18,55 @@
             
             if(isset($_GET['p_id'])){
 
-                $the_post_id= escape($_GET['p_id']);
+                $the_post_id= ($_GET['p_id']);
 
-                //$view_query = "UPDATE posts SET post_views_count = post_views_count + 1 WHERE post_id = $the_post_id";
-                //$send_query = mysqli_query($connection, $view_query);
+                $view_query = "UPDATE posts SET post_views_count = post_views_count + 1 WHERE post_id = $the_post_id";
+                $send_query = mysqli_query($connection, $view_query);
+
+
+                if(isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin' ){
+
+                    $query = "SELECT * FROM posts WHERE post_id = '{$the_post_id}' ";
 
 
 
+
+                }else {
+
+
+                      
+            $query = "SELECT * FROM posts WHERE post_id = '{$the_post_id}' AND post_status = 'publish' ";
+
+
+                }
 
 
 
 
                 
             
-            
-            $query = "SELECT * FROM posts WHERE post_id = '{$the_post_id}' "; // we write this $query because we need to sellect data from this data base. in this case posts are the db we need
+           // we write this $query because we need to sellect data from this data base. in this case posts are the db we need
             $select_all_posts_query = mysqli_query($connection, $query);
+
+
+            if(mysqli_num_rows($select_all_posts_query) < 1){
+
+
+echo "<h1 class='text-center'>NO POSTS</h1>";
+
+
+}else {
+
+
+
+
+
+
+
+
+
+
+
             
             while($row = mysqli_fetch_assoc($select_all_posts_query)){
                 $post_title = $row['post_title'];
@@ -45,8 +78,8 @@
                 ?>  
 
                 <h1 class="page-header">
-                    Page Heading
-                    <small>Secondary Text</small>
+                    Posts
+                   
                 </h1>
 
                 <!-- First Blog Post -->
@@ -70,14 +103,7 @@
             
             
             
-                  }else {
-
-                    header("Location: index.php");
-
-
-
-
-                  }
+                
                 
                 
                 
@@ -234,7 +260,14 @@
 
                 
                 
-                <?php  }  ?>
+                <?php  } }  }else {
+
+                header("Location: index.php");
+
+
+
+
+                } ?>
                 
                 
                 

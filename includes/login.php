@@ -23,8 +23,8 @@ session_start();
  
  if(isset($_POST['login'])){
 
-  $username = escape($_POST['username']);
-  $password = escape( $_POST['password']);
+  $username = ($_POST['username']);
+  $password = ( $_POST['password']);
 
 
 
@@ -66,7 +66,7 @@ $_SESSION['firstname'] = $db_user_firstname;
 $_SESSION['lastname'] = $db_user_lastname;
 $_SESSION['user_role'] = $db_user_role;
 
- header("Location: ../admin");//Location L is always capital
+ header("Location: ../index.php");//Location L is always capital
 }
 else{
 

@@ -23,7 +23,7 @@
 
                
 
-                $page = escape( $_GET['page']);
+                $page = ( $_GET['page']);
 
             }else {
 
@@ -41,10 +41,40 @@
 
             }
 
-            $post_query_count = "SELECT * FROM posts";
+
+            if(isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'admin' ){
+
+                $post_query_count = "SELECT * FROM posts";
+
+
+
+
+}else {
+
+
+
+    $post_query_count = "SELECT * FROM posts WHERE post_status = 'publish'";
+
+
+}
+
+
+
+
+
+
+
+
+
+
+           
             $find_count = mysqli_query($connection, $post_query_count);
             $count = mysqli_num_rows($find_count);
             
+            if($count < 1){
+                echo "<h1 class='text-center'>NO POSTS</h1>";
+
+            } else{  
 
             $count = ceil($count / $per_page);
 
@@ -66,7 +96,7 @@
                 $post_status = $row['post_status'];
 
 
-                if($post_status === 'publish'){
+              
               ?>  
 
                 <h1 class="page-header">
@@ -100,7 +130,7 @@
                 <hr>
 
 
-                <?php } }?>
+                    <?php } }   ?>
 
 
 

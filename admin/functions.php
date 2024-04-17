@@ -160,6 +160,67 @@ function insert_categories(){
 
                                     users_online();
 
+
+                                /// f-tion made for shortening code to count coments, posts etc. in dashboard $table is parameter for users, comments, categories etc.
+                                function recordCount($table){
+                                    global $connection;
+
+                                    $query  = "SELECT * FROM " . $table;
+                                    $select_all_post = mysqli_query($connection, $query);
+
+
+
+
+
+
+
+                                     return  mysqli_num_rows($select_all_post);
+
+                                    
+
+                                   
+
+                                }
+
+
+                                // made to shorten code counting values in table in dasboard
+                                function checkStatus($table, $column, $status){
+
+                                    global $connection;
+
+                                    $query = "SELECT * FROM $table WHERE $column = '$status'";
+
+                                   $result = mysqli_query($connection, $query);
+                                   return mysqli_num_rows($result);
+
+
+
+
+
+                                }
+
+                                function checkUserRole($table, $column, $role){
+                                    global $connection;
+                                   
+                                    $query = "SELECT * FROM $table WHERE $column = '$role'";
+                                    $select_all_subscribers = mysqli_query($connection, $query);
+                                    return mysqli_num_rows($select_all_subscribers);
+
+                                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                 ?>
 
 
